@@ -14,21 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.kafka.streams.kstream.internals;
+package org.apache.kafka.streams.state.internals;
 
-import org.apache.kafka.streams.kstream.Reducer;
-import org.apache.kafka.streams.kstream.Window;
-import org.apache.kafka.streams.kstream.Windows;
+import org.junit.Test;
 
-class KStreamWindowReduce<K, V, W extends Window> extends KStreamWindowAggregate<K, V, V, W> {
-    KStreamWindowReduce(final Windows<W> windows,
-                        final String storeName,
-                        final Reducer<V> reducer) {
-        super(
-            windows,
-            storeName,
-            () -> null,
-            (key, newValue, oldValue) -> oldValue == null ? newValue : reducer.apply(oldValue, newValue)
-        );
+public class InMemoryTimeOrderedKeyValueBufferTest {
+
+    @Test
+    public void bufferShouldAllowCacheEnablement() {
+        new InMemoryTimeOrderedKeyValueBuffer.Builder(null).withCachingEnabled();
+    }
+
+    @Test
+    public void bufferShouldAllowCacheDisablement() {
+        new InMemoryTimeOrderedKeyValueBuffer.Builder(null).withCachingDisabled();
     }
 }
